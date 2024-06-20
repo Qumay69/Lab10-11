@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>Lab10_11</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="bold.png" />
+    <None Remove="copy.png" />
+    <None Remove="create.png" />
+    <None Remove="cut.png" />
+    <None Remove="I.png" />
+    <None Remove="open.png" />
+    <None Remove="paste.png" />
+    <None Remove="save.png" />
+    <None Remove="u.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="bold.png" />
+    <Resource Include="copy.png" />
+    <Resource Include="create.png" />
+    <Resource Include="cut.png" />
+    <Resource Include="I.png" />
+    <Resource Include="open.png" />
+    <Resource Include="paste.png" />
+    <Resource Include="save.png" />
+    <Resource Include="u.png" />
+  </ItemGroup>
+
+</Project>

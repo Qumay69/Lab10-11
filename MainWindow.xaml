@@ -1,0 +1,24 @@
+﻿<Window x:Class="Lab10_11.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab10_11"
+        mc:Ignorable="d"
+        Title="Лаботаторная работа 10-11" Height="500" Width="900">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Content="Lab10" Name="btLab10" Grid.Row="0" Margin="10 70" Click="btLab10_Click"/>
+            <Button Content="Lab11" Name="btLab11" Grid.Row="1" Margin="10 70" Click="btLab11_Click"/>
+        </Grid>
+        <Frame x:Name="mainFrame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>
