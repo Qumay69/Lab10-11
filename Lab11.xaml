@@ -15,10 +15,10 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <ToolBar Grid.Row="0">
-            <Button Click="Button_Click_2">
+            <Button Click="LoadFromFile_Click">
                 <Image Source="open.png" />
             </Button>
-            <Button Click="Button_Click_1">
+            <Button Click="SaveToFile_Click">
                 <Image Source="save.png" />
             </Button>
         </ToolBar>
@@ -28,8 +28,7 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel Orientation="Vertical" Name="FilmsPanel"
-                        Grid.Column="0"/>
+                <StackPanel Orientation="Vertical" Name="TvPanel" Grid.Column="0"/>
             </ScrollViewer>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -39,14 +38,14 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBox Name="NameFilm" Margin="10 15" Grid.Row="0" VerticalAlignment="Center"/>
-                <TextBox Name="CountFilm" Margin="10 15" Grid.Row="1" VerticalAlignment="Center"/>
-                <TextBox Name="DurationFilm" Margin="10 15" Grid.Row="2" VerticalAlignment="Center"/>
-                <!--<Button Grid.Row="4" Margin="10 15" Content="Добавить" Click="Button_Click"/>-->
+                <TextBox Name="BrandName" Margin="10 15" Grid.Row="0" VerticalAlignment="Center" Text="Название фирмы"/>
+                <TextBox Name="DiagonalSize" Margin="10 15" Grid.Row="1" VerticalAlignment="Center" Text="Размер диагонали"/>
+                <TextBox Name="Price" Margin="10 15" Grid.Row="2" VerticalAlignment="Center" Text="Стоимость"/>
+                <Button Grid.Row="4" Margin="10 15" Content="Добавить" Click="AddTv_Click"/>
             </Grid>
         </Grid>
         <StatusBar Grid.Row="2">
-            <Label Name="maxFilm" Content=""/>
+            <Label Name="SamsungCount" Content="Samsung TV > 32\:\{samsungTvs.Count}"/>
         </StatusBar>
     </Grid>
 </Page>

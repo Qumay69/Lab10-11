@@ -19,54 +19,80 @@ using System.Windows.Shapes;
 
 namespace Lab10_11
 {
+    public class Television
+    {
+        public string Brand { get; set; }
+        public double Diagonal { get; set; }
+        public double Price { get; set; }
+
+        public override string ToString()
+        {
+            return $"Фирма: {Brand}, Диагональ: {Diagonal} дюймов, Стоимость: {Price} руб.";
+        }
+    }
+
     public partial class Lab11 : Page
     {
-        private List<Film> films;
+        private List<Television> televisions = new List<Television>();
+
         public Lab11()
         {
             InitializeComponent();
-            films = new List<Film>();
-        }
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Бинарные файлы(*.dat)|*.dat";
-           
-            if (sfd.ShowDialog() == true)
-            {
-                using (BinaryWriter writer = new BinaryWriter(File.Open(sfd.FileName, FileMode.OpenOrCreate)))
-                {
-                    string json = JsonSerializer.Serialize(films);
-                    writer.Write(json);
-                }
-            }
         }
 
-        private Film MaxFilm()
+        private void AddTv_Click(object sender, RoutedEventArgs e)
         {
-            Film max = films[0];
-            foreach (Film f in films)
+            if (string.IsNullOrWhiteSpace(BrandName.Text) || !double.TryParse(DiagonalSize.Text, out double diagonal) || !double.TryParse(Price.Text, out double price))
             {
-                if (f.getPeriod() > max.getPeriod()) max = f;
+                MessageBox.Show("Введите корректные данные для всех полей.");
+                return;
             }
-            return max;
+
+            var tv = new Television
+            {
+                Brand = BrandName.Text,
+                Diagonal = diagonal,
+                Price = price
+            };
+
+            televisions.Add(tv);
+            TvPanel.Children.Add(new TextBlock { Text = tv.ToString(), Margin = new Thickness(5) });
+
+            BrandName.Clear();
+            DiagonalSize.Clear();
+            Price.Clear();
+
+            UpdateSamsungCount();
         }
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+
+        private void SaveToFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Бинарные файлы(*.dat)|*.dat";
-            if (ofd.ShowDialog() == true)
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var jsonString = JsonSerializer.Serialize(televisions, options);
+            File.WriteAllText("televisions.json", jsonString);
+        }
+
+        private void LoadFromFile_Click(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists("televisions.json"))
             {
-                using (BinaryReader reader = new BinaryReader(File.Open(ofd.FileName, FileMode.Open)))
-                {
-                    string json = reader.ReadString();
-                    List<Film> desFilms= JsonSerializer.Deserialize<List<Film>>(json)!;
-                    foreach(Film f in desFilms)
-                    {
-                        films.Add(f);
-                    }
-                }
+                var jsonString = File.ReadAllText("televisions.json");
+                televisions = JsonSerializer.Deserialize<List<Television>>(jsonString);
             }
+
+            TvPanel.Children.Clear();
+            foreach (var tv in televisions)
+            {
+                TvPanel.Children.Add(new TextBlock { Text = tv.ToString(), Margin = new Thickness(5) });
+            }
+
+            UpdateSamsungCount();
+        }
+
+        private void UpdateSamsungCount()
+        {
+            var samsungTvs = televisions.Where(tv => tv.Brand.Equals("Samsung", StringComparison.OrdinalIgnoreCase) && tv.Diagonal >= 32).ToList();
+            SamsungCount.Content = $"Samsung TV > 32\": {samsungTvs.Count}";
         }
     }
 }
